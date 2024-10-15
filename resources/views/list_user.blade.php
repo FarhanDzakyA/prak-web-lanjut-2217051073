@@ -12,25 +12,37 @@
                 <table class="table-fixed text-white">
                     <thead>
                         <tr>
-                            <th scope="col" class="px-3 py-2 border-r border-b">ID</th>
-                            <th scope="col" class="py-2 w-52 border-r border-b">Nama</th>
-                            <th scope="col" class="py-2 w-28 border-r border-b">NPM</th>
-                            <th scope="col" class="px-3 py-2 border-r border-b">Kelas</th>
+                            <th scope="col" class="px-3 py-2 border-b">No</th>
+                            <th scope="col" class="py-2 w-52 border-b">Nama</th>
+                            <th scope="col" class="py-2 w-28 border-b">NPM</th>
+                            <th scope="col" class="px-3 py-2 border-b">Kelas</th>
                             <th scope="col" class="px-3 py-2 border-b">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php 
+                            $Num = 1;
                             foreach($users as $user) :
                         ?>
                         <tr>
-                            <td class="text-center py-2 border-r border-b"><?= $user['id'] ?></td>
-                            <td class="px-3 py-2 border-r border-b"><?= $user['nama'] ?></td>
-                            <td class="text-center py-2 border-r border-b"><?= $user['npm'] ?></td>
-                            <td class="text-center py-2 border-r border-b"><?= $user['nama_kelas'] ?></td>
-                            <td class="text-center py-2 border-b"><a href="{{ route('user.show', $user->id) }}" class="text-sky-500 underline underline-offset-2">Detail</a></td>
+                            <td class="text-center py-3 border-b"><?= $Num ?></td>
+                            <td class="px-3 py-3 border-b"><?= $user['nama'] ?></td>
+                            <td class="text-center py-3 border-b"><?= $user['npm'] ?></td>
+                            <td class="text-center py-3 border-b"><?= $user['nama_kelas'] ?></td>
+                            <td class="text-center py-3 border-b grid grid-cols-3 gap-2">
+                                <a href="{{ route('user.show', $user->id) }}" class="bg-green-500 w-7 h-7 flex items-center justify-center rounded"><i class="fa-regular fa-fw fa-eye" style="color: #ffffff;"></i></a>
+                                <a href="{{ route('user.edit', $user->id) }}" class="bg-blue-600 w-7 h-7 flex items-center justify-center rounded"><i class="fa-regular fa-fw fa-pen-to-square" style="color: #ffffff;"></i></a>
+                                <form action="{{ route('user.destroy', $user['id']) }}" method="POST" style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-600 w-7 h-7 flex items-center justify-center rounded" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')">
+                                        <i class="fa-solid fa-fw fa-trash" style="color: #ffffff;"></i>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                         <?php
+                            $Num++;
                             endforeach;
                         ?>
                     </tbody>
