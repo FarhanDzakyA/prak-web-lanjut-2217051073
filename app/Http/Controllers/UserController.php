@@ -57,23 +57,21 @@ class UserController extends Controller {
 
         if($request->hasFile('foto')) {
             $foto = $request->file('foto');
-            $fotoName = $foto->hashName();
-            $fotoPath = $foto->move(('upload/img'), $fotoName);
-            
-            // Ensure the path uses forward slashes
-            $fotoPath = str_replace('\\', '/', $fotoPath);
+            $fotoName = time() . '_' . $foto->getClientOriginalName();
+            $foto->storeAs('uploads', $fotoName);
+
         } else {
-            $fotoPath = null;
+            $fotoName = null;
         }
 
         $this->userModel->create([
             'nama' => $request->input('nama'),
             'npm' => $request->input('npm'),
             'kelas_id' => $request->input('kelas_id'),
-            'foto' => $fotoPath,
+            'foto' => $fotoName,
         ]);
 
-        return redirect()->to('/user')->with('success', 'User berhasil ditambahkan');
+        return redirect()->to('/')->with('success', 'User berhasil ditambahkan');
     }
 
     public function show($id) {
