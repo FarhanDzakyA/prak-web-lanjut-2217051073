@@ -98,24 +98,28 @@ class UserController extends Controller {
     public function edit($id) {
         $user = UserModel::findorFail($id);
         $kelasModel = new Kelas();
+        $fakultasModel = new Fakultas();
         $kelas = $kelasModel->getKelas();
+        $fakultas = $fakultasModel->getFakultas();
 
         $title = 'Edit User';
 
-        return view('edit_user', compact('user','kelas', 'title'));
+        return view('edit_user', compact('user','kelas', 'fakultas', 'title'));
     }
 
     public function update(Request $request, $id) {
         $user = UserModel::findorFail($id);
 
         $user->nama = $request->nama;
-        $user->npm = $request->npm;
         $user->kelas_id = $request->kelas_id;
+        $user->smt = $request->smt;
+        $user->fakultas_id = $request->fakultas_id;
+        $user->jurusan = $request->jurusan;
 
         if($request->hasFile('foto')) {
-            $fileName = time() . '.' . $request->foto->extension();
-            $request->foto->move(public_path('upload/img'), $fileName);
-            $user->foto = 'upload/img/' . $fileName;
+            $fileName = time() . '_' . $request->foto->getClientOriginalName();
+            $request->foto->storeAs('uploads', $fileName);
+            $user->foto = $fileName;
         }
 
         $user->save();
