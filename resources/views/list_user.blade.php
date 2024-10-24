@@ -14,8 +14,10 @@
                         <tr>
                             <th scope="col" class="px-3 py-2 border-b">No</th>
                             <th scope="col" class="py-2 w-52 border-b">Nama</th>
-                            <th scope="col" class="py-2 w-28 border-b">NPM</th>
                             <th scope="col" class="px-3 py-2 border-b">Kelas</th>
+                            <th scope="col" class="py-2 w-28 border-b">Jurusan</th>
+                            <th scope="col" class="py-2 w-28 border-b">Semester</th>
+                            <th scope="col" class="py-2 w-28 border-b">Fakultas</th>
                             <th scope="col" class="px-3 py-2 border-b">Aksi</th>
                         </tr>
                     </thead>
@@ -27,8 +29,10 @@
                         <tr>
                             <td class="text-center py-3 border-b"><?= $Num ?></td>
                             <td class="px-3 py-3 border-b"><?= $user['nama'] ?></td>
-                            <td class="text-center py-3 border-b"><?= $user['npm'] ?></td>
                             <td class="text-center py-3 border-b"><?= $user['nama_kelas'] ?></td>
+                            <td class="text-center capitalize py-3 border-b"><?= $user['jurusan'] ?></td>
+                            <td class="text-center py-3 border-b"><?= $user['smt'] ?></td>
+                            <td class="text-center py-3 border-b"><?= $user['nama_fakultas'] ?></td>
                             <td class="text-center py-3 border-b grid grid-cols-3 gap-2">
                                 <a href="{{ route('user.show', $user->id) }}" class="bg-green-500 w-7 h-7 flex items-center justify-center rounded"><i class="fa-regular fa-fw fa-eye" style="color: #ffffff;"></i></a>
                                 <a href="{{ route('user.edit', $user->id) }}" class="bg-blue-600 w-7 h-7 flex items-center justify-center rounded"><i class="fa-regular fa-fw fa-pen-to-square" style="color: #ffffff;"></i></a>

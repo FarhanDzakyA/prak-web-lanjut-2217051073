@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kelas;
+use App\Models\Fakultas;
 use App\Models\UserModel;
 use App\Http\Requests\UserRequest;
 
 class UserController extends Controller {
     public $userModel;
     public $kelasModel;
+    public $fakultasModel;
     
     public function __construct() {
         $this->userModel = new UserModel();
         $this->kelasModel = new Kelas();
+        $this->fakultasModel = new Fakultas();
     }
 
     public function index() {
@@ -37,22 +40,28 @@ class UserController extends Controller {
 
     public function create() {
         $kelasModel = new Kelas();
+        $fakultasModel = new Fakultas();
         $kelas = $kelasModel->getKelas();
+        $fakultas = $fakultasModel->getFakultas();
 
         $data = [
             'title' => 'Create User',
             'kelas' => $kelas,
+            'fakultas' => $fakultas,
         ];
 
         return view('create_user', $data);
     }
 
-    public function store(UserRequest $request) {
+    public function store(Request $request) {
+
         $request->validate([
             'nama' => 'required|string|max:255',
-            'npm' => 'required|string|max:255',
             'kelas_id' => 'required|integer',
             'foto' => 'nullable|image|mimes:jpeg, png, jpg, gif, svg|max:2048',
+            'fakultas_id' => 'required|exists:fakultas,id',
+            'jurusan' => 'nullable|in:fisika,kimia,biologi,matematika,ilmu komputer',
+            'smt' => 'required|integer|min:1|max:14',
         ]);
 
         if($request->hasFile('foto')) {
@@ -66,9 +75,11 @@ class UserController extends Controller {
 
         $this->userModel->create([
             'nama' => $request->input('nama'),
-            'npm' => $request->input('npm'),
             'kelas_id' => $request->input('kelas_id'),
             'foto' => $fotoName,
+            'fakultas_id' => $request->input('fakultas_id'),
+            'jurusan' => $request->input('jurusan'),
+            'smt' => $request->input('smt'),
         ]);
 
         return redirect()->to('/')->with('success', 'User berhasil ditambahkan');
@@ -77,10 +88,11 @@ class UserController extends Controller {
     public function show($id) {
         $user = UserModel::findorFail($id);
         $kelas = Kelas::find($user->kelas_id);
+        $fakultas = Fakultas::find($user->fakultas_id);
 
         $title = 'Detail ' . $user->nama;
 
-        return view('profile', compact('user', 'kelas', 'title'));
+        return view('profile', compact('user', 'kelas', 'fakultas', 'title'));
     }
 
     public function edit($id) {
@@ -115,6 +127,6 @@ class UserController extends Controller {
         $user = UserModel::findorFail($id);
         $user->delete();
 
-        return redirect()->to('/user')->with('success', 'User has been deleted successfully');
+        return redirect()->to('/')->with('success', 'User has been deleted successfully');
     }
 }

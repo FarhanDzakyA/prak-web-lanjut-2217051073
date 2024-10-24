@@ -11,9 +11,35 @@
                 @else
                     <img class="h-2/5 rounded-full" src="https://i.pinimg.com/564x/de/4a/19/de4a19f50af28e161dee0ba96d140cdd.jpg" alt="Profile Picture">
                 @endif
-                <p class="text-white font-mono text-3xl mt-14 font-semibold"><?= $user['nama'] ?></p>
-                <p class="text-white font-mono text-3xl mt-1 font-semibold"><?= $kelas['nama_kelas'] ?></p>
-                <p class="text-white font-mono text-3xl mt-1 font-semibold"><?= $user['npm'] ?></p>
+                <table class="mt-14">
+                    <tbody>
+                        <tr>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold">Nama</td>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold">:</td>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold"><?= $user['nama'] ?></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold">Kelas</td>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold">:</td>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold"><?= $kelas['nama_kelas'] ?></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold">Semester</td>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold">:</td>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold"><?= $user['smt'] ?></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold">Jurusan</td>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold">:</td>
+                            <td class="px-4 capitalize text-white font-mono text-3xl font-semibold"><?= $user['jurusan'] ?></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold">Fakultas</td>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold">:</td>
+                            <td class="px-4 text-white font-mono text-3xl font-semibold"><?= $fakultas['nama_fakultas'] ?></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
